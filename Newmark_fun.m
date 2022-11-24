@@ -1,11 +1,24 @@
-function [q,qdot,q2dot] =Newmark_fun(M,K,C,h,gamma,beta,nbNodes,n)
+function [q,qdot,q2dot] =Newmark_fun(M,K,C,h,gamma,beta,nbNodes,n,param)
 tmax=10;
 t=0:h:tmax;
-%matrice composed of the load vectors for each time step
+%matrix composed of the load vectors for each time step
 p=zeros(nbNodes*6-16,length(t));
-p(n,1:find(t==0.01))=4000;
-%avant l'impact la structure est au repos, tous les déplacements sont égaux
-%à zéros.
+if param==1
+   for k=1:length(t)-1
+        if t(k)<0.01 && t(k+1)>0.01
+            index=k;
+            k=length(t)-1;
+        elseif t(k)==0.01
+            index=k;
+            k=length(t)-1;
+        end
+   end
+    p(n,1:index)=4000;
+else
+    p(n,1:find(t==0.01))=4000;
+end
+%before the impact against the structure, the later is at rest-->no
+%movement-->q, qdot and q2dot are equal to zero.
 q=zeros(nbNodes*6-16,length(t));
 qdot=zeros(nbNodes*6-16,length(t));
 q2dot=zeros(nbNodes*6-16,length(t));
