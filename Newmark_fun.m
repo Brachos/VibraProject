@@ -3,7 +3,7 @@ tmax=10;
 t=0:h:tmax;
 %matrice composed of the load vectors for each time step
 p=zeros(nbNodes*6-16,length(t));
-p(8,1:find(t==0.01))=4000;
+p(2,1:find(t==0.01))=4000;
 %avant l'impact la structure est au repos, tous les déplacements sont égaux
 %à zéros.
 q=zeros(nbNodes*6-16,length(t));
