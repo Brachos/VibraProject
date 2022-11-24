@@ -14,6 +14,7 @@ qdot(:,1)=0;
 q2dot(:,1)=((p(:,1)-K*q(:,1)-C*qdot(:,1)).'*M^(-1)).';
 %compute the prediction
 S=M+h*gamma*C+h^2*beta*K;
+S_inv = S^(-1);
 for i=1:length(t)-1
     qpred=q(:,i)+h*qdot(:,i)+(0.5-beta)*h^2*q2dot(:,i);
     qdotpred=qdot(:,i)+(1-gamma)*h*q2dot(:,i);
